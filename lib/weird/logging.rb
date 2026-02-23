@@ -4,8 +4,19 @@ require 'logger'
 
 module Weird
   # Things for logs/status messages
+  # Use of status:
+  #   all: site started ended, major sections entered. Also to STDOUT.
+  #   light: how much work was done, minor sections entered. Also to STDOUT.
+  #   verbose: almost a full stack trace. To logfile.
 
-  # ARGY: Always log any status messages ?? as well as them going to STDOUT with a timestamp??
+  # ARGY: This is somewhat rubbish
+  # CURRENT Example use cases:
+  # status('Always gunna log this', interesting_variable)
+  # status('Heading', section_identifier_variable, true, logging_level)
+  # status('Detail', interesting_variable,false,logging_level)
+  # Noting that there is currently no mechanism in status for reducing indent
+  # eg: the "true/false" needs to be more like +1, 0, -1, or keywords to that effect
+
   def status(var_name, value, is_section = false, level = :verbose)
     return unless log?(level)
 
@@ -19,6 +30,7 @@ module Weird
   end
 
   # Helper to determine if a message should be logged based on the current LOG_LEVEL
+  # Probably rubbish
   def log?(level)
     case LOG_LEVEL
     when :none
